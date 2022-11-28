@@ -1,26 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class CombatEntity : MonoBehaviour
 {
     //component references
-    SpriteRenderer mRenderRef;
-    Rigidbody2D mRigidRef;
-    [SerializeField] Projectile mProjectilePrefab;
+    protected SpriteRenderer mRenderRef;
+    protected Rigidbody2D mRigidRef;
+    public Collider2D mCollider { get; private set; }
+    [SerializeField] protected Projectile mProjectilePrefab;
     //health
-    [SerializeField] int mCurrentHealth;
-    [SerializeField] int mMaxHealth;
-    [SerializeField] int mCurrentShield;
+    [SerializeField] protected int mCurrentHealth;
+    [SerializeField] protected int mMaxHealth;
+    [SerializeField] protected int mCurrentShield;
     //movement
-    [SerializeField] float mMaxMoveSpeed;
+    [SerializeField] protected float mMaxMoveSpeed;
     //combat
-    [SerializeField] int mDamage;
+    [SerializeField] protected int mDamage;
+    [SerializeField] protected float mFiringCooldown;
+    [SerializeField] protected float mFiringCooldownRemaining;
+    [SerializeField] protected Skill mSkill;
+    [SerializeField] protected float mSkillCooldown;
+    [SerializeField] protected float mSkillCooldownRemaining;
+    [SerializeField] protected Coroutine mSkillCoroutine;
 
     protected virtual void Awake()
     {
         mRenderRef = transform.GetChild(0).GetComponent<SpriteRenderer>();
         mRigidRef = GetComponent<Rigidbody2D>();
+        mCollider = GetComponent<Collider2D>();
     }
 
     protected virtual void Start()
@@ -35,13 +44,7 @@ public class CombatEntity : MonoBehaviour
 
     protected virtual void FixedUpdate()
     {
-        //get and cache movement vector
-        Vector2 movementDirection = GetMovementVector();
-        //apply movement
-        Move(movementDirection);
-        //attack if applicable (note: movement is still called, because if the magnitude is 0 this makes the player stop)
-        if (movementDirection.magnitude == 0)
-            AttackClosestCombatEntity();
+
     }
 
     protected virtual Vector2 GetMovementVector()
@@ -57,21 +60,25 @@ public class CombatEntity : MonoBehaviour
         mRigidRef.velocity = direction * mMaxMoveSpeed;
         //rotate entity to look in movement direction
         if (direction.magnitude != 0)
-            transform.up = direction;
+            LookAt2D(direction + (Vector2)transform.position);
         //idea: set move speed to zero if stunned
     }
 
     protected CombatEntity ReturnClosestCombatEntity()
     {
-        return null;
+        //get all other combat entities
+        CombatEntity[] otherEntities = GameManager.GMInstance.mCombatManager.GetAllCombatEntitiesExcept(new CombatEntity[] { this });
+        //using system.linq to order by distance, then return first element
+        //note: Vector2.sqrMagnitude is much faster than Vector2.magnitude, but can still be used to accurately compare distances
+        return otherEntities.OrderBy(entity => (entity.transform.position - transform.position).sqrMagnitude).FirstOrDefault();
     }
 
     protected virtual void AttackClosestCombatEntity()
     {
-
+        CombatEntity target = ReturnClosestCombatEntity();
     }
 
-    protected virtual void TakeDamage(int amount)
+    public virtual void TakeDamage(int amount)
     {
         //first, reduce shield
         mCurrentShield -= amount;
@@ -84,6 +91,7 @@ public class CombatEntity : MonoBehaviour
             mCurrentShield = 0;
         }
         mCurrentHealth -= amount;
+        //if ui is added, consider doing mathf.clamp here to prevent values below 0 breaking health bars
         if (mCurrentHealth <= 0)
             Die();
     }
@@ -91,5 +99,13 @@ public class CombatEntity : MonoBehaviour
     protected virtual void Die()
     {
         Debug.Log("Io sono morto");
+        //remove own reference in combatManager (this might break if the player is deleted, todo: check this one implemented)
+        GameManager.GMInstance.mCombatManager.RemoveCombatEntity(this);
+        Destroy(gameObject);
+    }
+
+    protected virtual void LookAt2D(Vector2 target)
+    {
+        transform.up = (target - (Vector2)transform.position).normalized;
     }
 }

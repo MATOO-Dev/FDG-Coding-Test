@@ -24,7 +24,7 @@ public class Enemy : CombatEntity
         base.FixedUpdate();
     }
 
-    protected override void TakeDamage(int amount)
+    public override void TakeDamage(int amount)
     {
         base.TakeDamage(amount);
     }

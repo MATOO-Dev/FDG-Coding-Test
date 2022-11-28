@@ -19,9 +19,12 @@ public class GameManager : MonoBehaviour
             GMInstance = this;
         else if (GMInstance != this)
             Destroy(gameObject);
-        //get references
+        //get references and initialize their base values if applicable
         mCombatManager = GetComponentInChildren<CombatManager>();
+        mCombatManager.PopulateEntityList();
         mInputManager = GetComponentInChildren<InputManager>();
-        mPlayerRef = GameObject.Find("Player").GetComponent<Player>();
+        mInputManager.CreateControlsAsset();
+        mPlayerRef = (Player)mCombatManager.GetCombatEntityByIndex(0);
+        //mPlayerRef = GameObject.Find("Player").GetComponent<Player>();
     }
 }

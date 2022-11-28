@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 4625275437693089703}
   - component: {fileID: 8146112775197627305}
   - component: {fileID: 6130539960482199749}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -47,12 +47,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80dad91039f39ba7eae846ff80730ec6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mProjectilePrefab: {fileID: 0}
+  mProjectilePrefab: {fileID: 3935924519935497796, guid: 5ae58d9c341be9937bfea3cc90a748bc, type: 3}
   mCurrentHealth: 0
-  mMaxHealth: 100
+  mMaxHealth: 600
   mCurrentShield: 0
   mMaxMoveSpeed: 2
-  mDamage: 1
+  mDamage: 120
+  mFiringCooldown: 0.75
+  mFiringCooldownRemaining: 0
 --- !u!58 &8146112775197627305
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -116,7 +118,7 @@ Transform:
   m_GameObject: {fileID: 2853700452098706729}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1170705481794832247}
