@@ -44,23 +44,6 @@ public class Player : CombatEntity
         base.Die();
     }
 
-    protected override void AttackClosestCombatEntity()
-    {
-        CombatEntity target = ReturnClosestCombatEntity();
-        //cancel early if no targets are available
-        if (target == null)
-            return;
-        //look at enemy
-        Quaternion.LookRotation(target.transform.position);
-        //delta
-        Vector3 deltaVector = (target.transform.position - transform.position).normalized;
-        //instantiate projectile
-        Projectile newProjectile = Instantiate(mProjectilePrefab, transform.position, Quaternion.identity);
-        newProjectile.InitiateProjectile(this, deltaVector, mDamage);
-        //set cooldown
-        mFiringCooldownRemaining = mFiringCooldown;
-    }
-
     protected override Vector2 GetMovementVector()
     {
         //get desired movement direction based on input

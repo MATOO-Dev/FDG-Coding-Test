@@ -12,18 +12,18 @@ public class CombatEntity : MonoBehaviour
     [SerializeField] protected Projectile mProjectilePrefab;
     //health
     [SerializeField] protected int mCurrentHealth;
-    [SerializeField] protected int mMaxHealth;
+    [SerializeField] public int mMaxHealth { get; protected set; }
     [SerializeField] protected int mCurrentShield;
     //movement
     [SerializeField] protected float mMaxMoveSpeed;
     //combat
-    [SerializeField] protected int mDamage;
+    [SerializeField] public int mDamage { get; protected set; }
     [SerializeField] protected float mFiringCooldown;
     [SerializeField] protected float mFiringCooldownRemaining;
-    [SerializeField] protected Skill mSkill;
-    [SerializeField] protected float mSkillCooldown;
-    [SerializeField] protected float mSkillCooldownRemaining;
-    [SerializeField] protected Coroutine mSkillCoroutine;
+    [SerializeField] protected ESkillType mDefaultSkillType;
+    [SerializeField] protected ESkillType mSpecialSkillType;
+    [SerializeField] protected Skill mDefaultSkill;
+    [SerializeField] protected Skill mSpecialSkill;
 
     protected virtual void Awake()
     {
@@ -35,6 +35,7 @@ public class CombatEntity : MonoBehaviour
     protected virtual void Start()
     {
         mCurrentHealth = mMaxHealth;
+        mDefaultSkill = Skill.ReturnNewSkillFromType(mDefaultSkillType);
     }
 
     protected virtual void Update()
@@ -65,7 +66,7 @@ public class CombatEntity : MonoBehaviour
         //idea: set move speed to zero if stunned
     }
 
-    protected CombatEntity ReturnClosestCombatEntity()
+    public CombatEntity ReturnClosestCombatEntity()
     {
         //get all other combat entities
         CombatEntity[] otherEntities = GameManager.GMInstance.mCombatManager.GetAllCombatEntitiesExcept(new CombatEntity[] { this });
@@ -76,7 +77,7 @@ public class CombatEntity : MonoBehaviour
 
     protected virtual void AttackClosestCombatEntity()
     {
-        CombatEntity target = ReturnClosestCombatEntity();
+        //mDefaultSkill.Use();
     }
 
     public virtual void TakeDamage(int amount)
@@ -103,5 +104,20 @@ public class CombatEntity : MonoBehaviour
         //remove own reference in combatManager (this might break if the player is deleted, todo: check this one implemented)
         GameManager.GMInstance.mCombatManager.RemoveCombatEntity(this);
         Destroy(gameObject);
+    }
+
+    public void AddShield(int amount)
+    {
+        mCurrentShield += amount;
+    }
+
+    public void SetShield(int amount)
+    {
+        mCurrentShield = amount;
+    }
+
+    public void BreakShields()
+    {
+        mCurrentShield = 0;
     }
 }
