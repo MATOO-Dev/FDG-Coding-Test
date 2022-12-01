@@ -16,11 +16,16 @@ public class Skill : MonoBehaviour
     protected float mSkillCoolDownRemaining;
     protected CombatEntity mSkillOwner;
     public Coroutine mSkillRoutine { get; set; }
+    [SerializeField] bool mAffectsUIElement;
 
     void FixedUpdate()
     {
         if (mSkillCoolDownRemaining > 0)
+        {
             mSkillCoolDownRemaining -= Time.deltaTime;
+            if (mAffectsUIElement)
+                mSkillOwner.mHealthBar.SetAbilityFill(1 - (mSkillCoolDownRemaining / mSkillCoolDown));
+        }
     }
 
     public virtual void UseSkill()

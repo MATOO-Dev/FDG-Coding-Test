@@ -22,12 +22,14 @@ public class CombatEntity : MonoBehaviour
     [SerializeField] protected ESkillType mSpecialSkillType;
     protected Skill mDefaultSkill;
     protected Skill mSpecialSkill;
+    public HealthBarController mHealthBar { get; protected set; }
 
     protected virtual void Awake()
     {
         mRenderRef = transform.GetChild(0).GetComponent<SpriteRenderer>();
         mRigidRef = GetComponent<Rigidbody>();
         mCollider = GetComponent<Collider>();
+        mHealthBar = transform.GetChild(1).GetComponent<HealthBarController>();
     }
 
     protected virtual void Start()
@@ -94,6 +96,8 @@ public class CombatEntity : MonoBehaviour
             mCurrentShield = 0;
         }
         mCurrentHealth -= amount;
+        mHealthBar.SetHealthFill((float)mCurrentHealth / (float)mMaxHealth);
+        mHealthBar.SetShieldFill((float)mCurrentShield / ((float)mMaxHealth * 0.25f));
         //if ui is added, consider doing mathf.clamp here to prevent values below 0 breaking health bars
         if (mCurrentHealth <= 0)
             Die();
@@ -110,16 +114,19 @@ public class CombatEntity : MonoBehaviour
     public void AddShield(int amount)
     {
         mCurrentShield += amount;
+        mHealthBar.SetShieldFill((float)mCurrentShield / ((float)mMaxHealth * 0.25f));
     }
 
     public void SetShield(int amount)
     {
         mCurrentShield = amount;
+        mHealthBar.SetShieldFill((float)mCurrentShield / ((float)mMaxHealth * 0.25f));
     }
 
     public void BreakShields()
     {
         mCurrentShield = 0;
+        mHealthBar.SetShieldFill((float)mCurrentShield / ((float)mMaxHealth * 0.25f));
     }
 
     public int GetMaxHealth()

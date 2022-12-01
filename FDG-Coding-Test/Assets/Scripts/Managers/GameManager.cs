@@ -11,8 +11,9 @@ public class GameManager : MonoBehaviour
     public InputManager mInputManager { get; private set; }
     //factories
     public ProjectileFactory mProjectileFactory { get; private set; }
-    //player reference
+    //other important object references
     public Player mPlayerRef { get; private set; }
+    public Camera mMainCamera { get; private set; }
 
     void Awake()
     {
@@ -22,6 +23,7 @@ public class GameManager : MonoBehaviour
         else if (GMInstance != this)
             Destroy(gameObject);
         //get references and initialize their base values if applicable
+        mMainCamera = GetComponentInChildren<Camera>();
         mCombatManager = GetComponentInChildren<CombatManager>();
         mCombatManager.PopulateEntityList();
         mInputManager = GetComponentInChildren<InputManager>();

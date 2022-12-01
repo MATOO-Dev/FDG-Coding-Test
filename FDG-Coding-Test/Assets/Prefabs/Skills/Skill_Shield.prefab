@@ -45,5 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mSkillCoolDown: 10
+  mAffectsUIElement: 1
   mMaxShieldDuration: 3
   mMaxHealthShieldMultiplier: 0.25

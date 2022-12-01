@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mSkillCoolDown: 10
+  mAffectsUIElement: 1
   mShotCount: 3
   mTimeBetweenShots: 0.25
   mSkillActiveTime: 5
