@@ -6,6 +6,10 @@ using System.Linq;
 public class CombatManager : MonoBehaviour
 {
     public List<CombatEntity> mActiveEntitys { get; private set; }
+    [SerializeField] Skill_Projectile mProjectileSkillPrefab;
+    [SerializeField] Skill_MultiShot mMultiShotSkillPrefab;
+    [SerializeField] Skill_CircularShot mCircularShotSkillPrefab;
+    [SerializeField] Skill_Shield mShieldSkillPrefab;
 
     public void PopulateEntityList()
     {
@@ -36,5 +40,24 @@ public class CombatManager : MonoBehaviour
     public CombatEntity[] GetAllCombatEntitiesExcept(CombatEntity[] exceptions)
     {
         return mActiveEntitys.Except(exceptions).ToArray();
+    }
+
+    public Skill CreateNewSkillFromType(ESkillType type)
+    {
+        //instantiate a new skill object and return that reference
+        //this is done because just using the prefab itself makes all combatentities use the same reference, so only 1 can use it
+        switch (type)
+        {
+            case (ESkillType.projectile):
+                return Instantiate(mProjectileSkillPrefab);
+            case (ESkillType.multishot):
+                return Instantiate(mMultiShotSkillPrefab);
+            case (ESkillType.circularshot):
+                return Instantiate(mCircularShotSkillPrefab);
+            case (ESkillType.shield):
+                return Instantiate(mShieldSkillPrefab);
+            default:
+                return null;
+        }
     }
 }

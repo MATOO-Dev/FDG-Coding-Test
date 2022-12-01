@@ -100,6 +100,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "SpecialAbility",
+            "id": "3f622df3-3520-4197-8318-5abbab007128",
+            "actions": [
+                {
+                    "name": "UseSpecialAbility",
+                    "type": "Button",
+                    "id": "e2fa195a-4c2e-4cff-94de-6ce421483b5d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "fe5a5be1-8a0b-4f92-bad8-91371eb2f6f8",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UseSpecialAbility",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

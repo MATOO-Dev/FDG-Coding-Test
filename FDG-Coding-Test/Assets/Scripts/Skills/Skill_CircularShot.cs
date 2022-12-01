@@ -6,7 +6,7 @@ public class Skill_CircularShot : Skill
 {
     [SerializeField] int mShotCount;
 
-    protected override IEnumerator ActivateSkill()
+    public override IEnumerator ActivateSkill()
     {
         //get angle between shots (e.g. 4 shots -> 90° between shots to form a cross)
         float mShotAngle = 360 / mShotCount;
@@ -17,9 +17,11 @@ public class Skill_CircularShot : Skill
             //start at forwards, then rotate around origin
             Vector3 directionVector = Quaternion.Euler(0, mShotAngle * i, 0) * mSkillOwner.transform.forward;
             //create a new projectile in that direction
-            ProjectileFactory.CreateNewProjectile(mSkillOwner, directionVector);
+            GameManager.GMInstance.mProjectileFactory.CreateNewProjectile(mSkillOwner, directionVector);
         }
         //set cooldown
-        yield return new WaitForSeconds(mSkillCoolDown);
+        //yield return new WaitForSeconds(mSkillCoolDown);
+        mSkillCoolDownRemaining = mSkillCoolDown;
+        yield return null;
     }
 }

@@ -9,11 +9,15 @@ public class Player : CombatEntity
     {
         base.Awake();
         GameManager.GMInstance.mInputManager.mControlsAsset.PlayerMovement.Enable();
+        GameManager.GMInstance.mInputManager.mControlsAsset.SpecialAbility.Enable();
+        GameManager.GMInstance.mInputManager.mControlsAsset.SpecialAbility.UseSpecialAbility.performed += inputData => UseSpecialSkill();
     }
 
     protected override void Start()
     {
         base.Start();
+        mSpecialSkill = GameManager.GMInstance.mCombatManager.CreateNewSkillFromType(mSpecialSkillType);
+        mSpecialSkill.InitializeSkill(this);
     }
 
     protected override void Update()
@@ -29,8 +33,7 @@ public class Player : CombatEntity
         //apply movement
         Move(movementDirection);
         //attack if applicable (note: movement is still called, because if the magnitude is 0 this makes the player stop)
-        mFiringCooldownRemaining -= Time.deltaTime;
-        if (movementDirection.magnitude == 0 && mFiringCooldownRemaining <= 0)
+        if (movementDirection.magnitude == 0)
             AttackClosestCombatEntity();
     }
 

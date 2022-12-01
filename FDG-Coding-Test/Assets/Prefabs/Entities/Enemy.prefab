@@ -51,13 +51,14 @@ MonoBehaviour:
   mCurrentHealth: 0
   mMaxHealth: 500
   mCurrentShield: 0
-  mMaxMoveSpeed: 2
+  mMaxMoveSpeed: 3
   mDamage: 50
   mFiringCooldown: 1
   mFiringCooldownRemaining: 0
-  mSkill: {fileID: 0}
-  mSkillCooldown: 0
-  mSkillCooldownRemaining: 0
+  mDefaultSkillType: 0
+  mSpecialSkillType: 3
+  mDefaultSkill: {fileID: 0}
+  mSpecialSkill: {fileID: 0}
 --- !u!136 &4781756034537606513
 CapsuleCollider:
   m_ObjectHideFlags: 0

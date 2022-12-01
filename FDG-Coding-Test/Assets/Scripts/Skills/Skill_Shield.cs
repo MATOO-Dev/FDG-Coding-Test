@@ -5,11 +5,14 @@ using UnityEngine;
 public class Skill_Shield : Skill
 {
     [SerializeField] float mMaxShieldDuration;
+    [SerializeField] float mMaxHealthShieldMultiplier;
 
-    protected override IEnumerator ActivateSkill()
+    public override IEnumerator ActivateSkill()
     {
-        mSkillOwner.SetShield((int)(mSkillOwner.mMaxHealth * 0.25f));
+        mSkillOwner.SetShield((int)(mSkillOwner.GetMaxHealth() * mMaxHealthShieldMultiplier));
+        mSkillCoolDownRemaining = Mathf.Infinity;
         yield return new WaitForSeconds(mMaxShieldDuration);
         mSkillOwner.BreakShields();
+        mSkillCoolDownRemaining = mSkillCoolDown;
     }
 }

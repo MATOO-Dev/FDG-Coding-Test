@@ -122,6 +122,34 @@ public partial class @InputController : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""SpecialAbility"",
+            ""id"": ""3f622df3-3520-4197-8318-5abbab007128"",
+            ""actions"": [
+                {
+                    ""name"": ""UseSpecialAbility"",
+                    ""type"": ""Button"",
+                    ""id"": ""e2fa195a-4c2e-4cff-94de-6ce421483b5d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""fe5a5be1-8a0b-4f92-bad8-91371eb2f6f8"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UseSpecialAbility"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -132,6 +160,9 @@ public partial class @InputController : IInputActionCollection2, IDisposable
         // PauseMenuControls
         m_PauseMenuControls = asset.FindActionMap("PauseMenuControls", throwIfNotFound: true);
         m_PauseMenuControls_TogglePauseMenu = m_PauseMenuControls.FindAction("TogglePauseMenu", throwIfNotFound: true);
+        // SpecialAbility
+        m_SpecialAbility = asset.FindActionMap("SpecialAbility", throwIfNotFound: true);
+        m_SpecialAbility_UseSpecialAbility = m_SpecialAbility.FindAction("UseSpecialAbility", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -253,6 +284,39 @@ public partial class @InputController : IInputActionCollection2, IDisposable
         }
     }
     public PauseMenuControlsActions @PauseMenuControls => new PauseMenuControlsActions(this);
+
+    // SpecialAbility
+    private readonly InputActionMap m_SpecialAbility;
+    private ISpecialAbilityActions m_SpecialAbilityActionsCallbackInterface;
+    private readonly InputAction m_SpecialAbility_UseSpecialAbility;
+    public struct SpecialAbilityActions
+    {
+        private @InputController m_Wrapper;
+        public SpecialAbilityActions(@InputController wrapper) { m_Wrapper = wrapper; }
+        public InputAction @UseSpecialAbility => m_Wrapper.m_SpecialAbility_UseSpecialAbility;
+        public InputActionMap Get() { return m_Wrapper.m_SpecialAbility; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(SpecialAbilityActions set) { return set.Get(); }
+        public void SetCallbacks(ISpecialAbilityActions instance)
+        {
+            if (m_Wrapper.m_SpecialAbilityActionsCallbackInterface != null)
+            {
+                @UseSpecialAbility.started -= m_Wrapper.m_SpecialAbilityActionsCallbackInterface.OnUseSpecialAbility;
+                @UseSpecialAbility.performed -= m_Wrapper.m_SpecialAbilityActionsCallbackInterface.OnUseSpecialAbility;
+                @UseSpecialAbility.canceled -= m_Wrapper.m_SpecialAbilityActionsCallbackInterface.OnUseSpecialAbility;
+            }
+            m_Wrapper.m_SpecialAbilityActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @UseSpecialAbility.started += instance.OnUseSpecialAbility;
+                @UseSpecialAbility.performed += instance.OnUseSpecialAbility;
+                @UseSpecialAbility.canceled += instance.OnUseSpecialAbility;
+            }
+        }
+    }
+    public SpecialAbilityActions @SpecialAbility => new SpecialAbilityActions(this);
     public interface IPlayerMovementActions
     {
         void OnMoveDirection(InputAction.CallbackContext context);
@@ -260,5 +324,9 @@ public partial class @InputController : IInputActionCollection2, IDisposable
     public interface IPauseMenuControlsActions
     {
         void OnTogglePauseMenu(InputAction.CallbackContext context);
+    }
+    public interface ISpecialAbilityActions
+    {
+        void OnUseSpecialAbility(InputAction.CallbackContext context);
     }
 }

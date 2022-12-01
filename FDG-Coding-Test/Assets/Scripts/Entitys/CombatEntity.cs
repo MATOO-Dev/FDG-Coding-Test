@@ -12,18 +12,16 @@ public class CombatEntity : MonoBehaviour
     [SerializeField] protected Projectile mProjectilePrefab;
     //health
     [SerializeField] protected int mCurrentHealth;
-    [SerializeField] public int mMaxHealth { get; protected set; }
+    [SerializeField] public int mMaxHealth;
     [SerializeField] protected int mCurrentShield;
     //movement
     [SerializeField] protected float mMaxMoveSpeed;
     //combat
-    [SerializeField] public int mDamage { get; protected set; }
-    [SerializeField] protected float mFiringCooldown;
-    [SerializeField] protected float mFiringCooldownRemaining;
+    [SerializeField] public int mDamage;
     [SerializeField] protected ESkillType mDefaultSkillType;
     [SerializeField] protected ESkillType mSpecialSkillType;
-    [SerializeField] protected Skill mDefaultSkill;
-    [SerializeField] protected Skill mSpecialSkill;
+    protected Skill mDefaultSkill;
+    protected Skill mSpecialSkill;
 
     protected virtual void Awake()
     {
@@ -35,7 +33,8 @@ public class CombatEntity : MonoBehaviour
     protected virtual void Start()
     {
         mCurrentHealth = mMaxHealth;
-        mDefaultSkill = Skill.ReturnNewSkillFromType(mDefaultSkillType);
+        mDefaultSkill = GameManager.GMInstance.mCombatManager.CreateNewSkillFromType(mDefaultSkillType);
+        mDefaultSkill.InitializeSkill(this);
     }
 
     protected virtual void Update()
@@ -77,13 +76,15 @@ public class CombatEntity : MonoBehaviour
 
     protected virtual void AttackClosestCombatEntity()
     {
-        //mDefaultSkill.Use();
+        mDefaultSkill.UseSkill();
     }
 
     public virtual void TakeDamage(int amount)
     {
         //first, reduce shield
         mCurrentShield -= amount;
+        //reset amount to prevent health being damaged aswell if there is a shield
+        amount = 0;
         //if shield amount is negative, apply the remaining damage normally
         if (mCurrentShield < 0)
         {
@@ -119,5 +120,26 @@ public class CombatEntity : MonoBehaviour
     public void BreakShields()
     {
         mCurrentShield = 0;
+    }
+
+    public int GetMaxHealth()
+    {
+        return mMaxHealth;
+    }
+
+    public int GetDamage()
+    {
+        return mDamage;
+    }
+
+    public Skill GetDefaultSkill()
+    {
+        return mDefaultSkill;
+    }
+
+    public void UseSpecialSkill()
+    {
+        if (mSpecialSkill != null)
+            mSpecialSkill.UseSkill();
     }
 }
