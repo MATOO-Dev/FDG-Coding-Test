@@ -17,7 +17,8 @@ public class Skill_Projectile : Skill
             mSkillCoolDownRemaining = Mathf.Infinity;
             //StopSkillExecution();
             //look at enemy
-            Quaternion.LookRotation(target.transform.position);
+            //mSkillOwner.transform.LookAt(target.transform.position);
+            mSkillOwner.SetTurnTarget(target.transform.position);
             //repeat if applicable
             for (int i = 0; i < mShotCount; i++)
             {

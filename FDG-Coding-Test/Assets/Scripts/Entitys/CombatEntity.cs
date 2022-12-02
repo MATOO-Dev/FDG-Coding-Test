@@ -18,11 +18,15 @@ public class CombatEntity : MonoBehaviour
     [SerializeField] protected float mMaxMoveSpeed;
     //combat
     [SerializeField] public int mDamage;
-    [SerializeField] protected ESkillType mDefaultSkillType;
-    [SerializeField] protected ESkillType mSpecialSkillType;
-    protected Skill mDefaultSkill;
-    protected Skill mSpecialSkill;
+    [SerializeField] protected ESkillType mDefaultSkillStartType;
+    [SerializeField] protected ESkillType mSpecialSkillStartType;
+    [SerializeField] protected Skill[] mSkills;
     public HealthBarController mHealthBar { get; protected set; }
+    protected Transform mSkillContainer;
+    //smooth rotation
+    [SerializeField] protected float mTurnSpeed;
+    public Vector3 mTurnTarget;
+
 
     protected virtual void Awake()
     {
@@ -30,18 +34,20 @@ public class CombatEntity : MonoBehaviour
         mRigidRef = GetComponent<Rigidbody>();
         mCollider = GetComponent<Collider>();
         mHealthBar = transform.GetChild(1).GetComponent<HealthBarController>();
+        mSkillContainer = transform.GetChild(2);
+        mSkills = new Skill[2];
     }
 
     protected virtual void Start()
     {
         mCurrentHealth = mMaxHealth;
-        mDefaultSkill = GameManager.GMInstance.mCombatManager.CreateNewSkillFromType(mDefaultSkillType);
-        mDefaultSkill.InitializeSkill(this);
+        FillSkillContainer(0, mDefaultSkillStartType);
+        FillSkillContainer(1, mSpecialSkillStartType);
     }
 
     protected virtual void Update()
     {
-
+        SmoothLook();
     }
 
     protected virtual void FixedUpdate()
@@ -62,9 +68,9 @@ public class CombatEntity : MonoBehaviour
         mRigidRef.velocity = new Vector3(direction.x, 0, direction.y) * mMaxMoveSpeed;
         //rotate entity to look in movement direction
         if (direction.magnitude != 0)
-            //transform.LookAt(transform.position + (Vector3)direction);
-            Quaternion.LookRotation(direction);
-        //idea: set move speed to zero if stunned
+        {
+            SetTurnTarget(transform.position + mRigidRef.velocity);
+        }
     }
 
     public CombatEntity ReturnClosestCombatEntity()
@@ -78,7 +84,7 @@ public class CombatEntity : MonoBehaviour
 
     protected virtual void AttackClosestCombatEntity()
     {
-        mDefaultSkill.UseSkill();
+        mSkills[0].UseSkill();
     }
 
     public virtual void TakeDamage(int amount)
@@ -123,12 +129,6 @@ public class CombatEntity : MonoBehaviour
         mHealthBar.SetShieldFill((float)mCurrentShield / ((float)mMaxHealth * 0.25f));
     }
 
-    public void BreakShields()
-    {
-        mCurrentShield = 0;
-        mHealthBar.SetShieldFill((float)mCurrentShield / ((float)mMaxHealth * 0.25f));
-    }
-
     public int GetMaxHealth()
     {
         return mMaxHealth;
@@ -139,14 +139,32 @@ public class CombatEntity : MonoBehaviour
         return mDamage;
     }
 
-    public Skill GetDefaultSkill()
+    public Skill GetSkill(int index)
     {
-        return mDefaultSkill;
+        return mSkills[index];
     }
 
-    public void UseSpecialSkill()
+    public void UseSkill(int index)
     {
-        if (mSpecialSkill != null)
-            mSpecialSkill.UseSkill();
+        mSkills[index]?.UseSkill();
+    }
+
+    void FillSkillContainer(int skillIndex, ESkillType newSkillType)
+    {
+        if (mSkills[skillIndex] != null)
+            Destroy(mSkills[skillIndex].gameObject);
+        mSkills[skillIndex] = GameManager.GMInstance.mCombatManager.CreateNewSkillFromType(newSkillType);
+        mSkills[skillIndex].InitializeSkill(this);
+        mSkills[skillIndex].transform.parent = this.transform.GetChild(2);
+    }
+
+    protected void SmoothLook()
+    {
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(mTurnTarget - transform.position), Time.deltaTime * mTurnSpeed);
+    }
+
+    public void SetTurnTarget(Vector3 targetPos)
+    {
+        mTurnTarget = targetPos;
     }
 }

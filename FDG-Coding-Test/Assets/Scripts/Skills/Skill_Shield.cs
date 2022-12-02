@@ -12,7 +12,7 @@ public class Skill_Shield : Skill
         mSkillOwner.SetShield((int)(mSkillOwner.GetMaxHealth() * mMaxHealthShieldMultiplier));
         mSkillCoolDownRemaining = Mathf.Infinity;
         yield return new WaitForSeconds(mMaxShieldDuration);
-        mSkillOwner.BreakShields();
+        mSkillOwner.SetShield(0);
         mSkillCoolDownRemaining = mSkillCoolDown;
     }
 }

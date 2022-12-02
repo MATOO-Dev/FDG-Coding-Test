@@ -10,14 +10,12 @@ public class Player : CombatEntity
         base.Awake();
         GameManager.GMInstance.mInputManager.mControlsAsset.PlayerMovement.Enable();
         GameManager.GMInstance.mInputManager.mControlsAsset.SpecialAbility.Enable();
-        GameManager.GMInstance.mInputManager.mControlsAsset.SpecialAbility.UseSpecialAbility.performed += inputData => UseSpecialSkill();
+        GameManager.GMInstance.mInputManager.mControlsAsset.SpecialAbility.UseSpecialAbility.performed += inputData => UseSkill(1);
     }
 
     protected override void Start()
     {
         base.Start();
-        mSpecialSkill = GameManager.GMInstance.mCombatManager.CreateNewSkillFromType(mSpecialSkillType);
-        mSpecialSkill.InitializeSkill(this);
     }
 
     protected override void Update()

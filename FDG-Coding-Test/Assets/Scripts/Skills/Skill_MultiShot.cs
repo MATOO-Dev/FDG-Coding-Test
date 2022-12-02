@@ -19,7 +19,7 @@ public class Skill_MultiShot : Skill
         //going with option 1 for now:
 
         //get primary skill from owner entity
-        Skill_Projectile defaultSkillRef = (Skill_Projectile)mSkillOwner.GetDefaultSkill();
+        Skill_Projectile defaultSkillRef = (Skill_Projectile)mSkillOwner.GetSkill(0);
         //save current variables
         Vector2 multiShotBackup = defaultSkillRef.GetMultiShot();
         //set variables

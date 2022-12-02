@@ -7,6 +7,7 @@ public class Enemy : CombatEntity
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
+        Move(Vector2.zero);
         AttackClosestCombatEntity();
     }
 }

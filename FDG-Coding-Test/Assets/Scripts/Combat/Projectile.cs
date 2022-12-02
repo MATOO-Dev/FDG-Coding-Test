@@ -11,17 +11,18 @@ public class Projectile : MonoBehaviour
     Rigidbody mRigidRef;
 
 
-    public void InitiateProjectile(CombatEntity owner, Vector3 direction, int damage)
+    public virtual void InitiateProjectile(CombatEntity owner, Vector3 direction, int damage)
     {
         mOwner = owner;
         mDamage = damage;
         mRigidRef = GetComponent<Rigidbody>();
         mRigidRef.velocity = direction.normalized * mMoveSpeed;
         Physics.IgnoreCollision(GetComponent<Collider>(), mOwner.mCollider, true);
+        transform.LookAt(transform.position + mRigidRef.velocity);
         Destroy(gameObject, mMaxLifeTime);
     }
 
-    void OnTriggerEnter(Collider other)
+    public virtual void OnTriggerEnter(Collider other)
     {
         //first, resolve for wall or combatentity
         switch (other.gameObject.layer)
