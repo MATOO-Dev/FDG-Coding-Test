@@ -20,7 +20,7 @@ public class Skill : MonoBehaviour
     [SerializeField] protected float mDefaultAttackCoolDownAfterUse;
 
     protected void Start()
-    {   
+    {
         //set ability cooldown right at the start, to prevent instant ability use upon starting the game
         mSkillCoolDownRemaining = mSkillCoolDown;
     }
@@ -31,7 +31,8 @@ public class Skill : MonoBehaviour
         {
             mSkillCoolDownRemaining -= Time.deltaTime;
             if (mAffectsUIElement)
-                mSkillOwner.mHealthBar.SetAbilityFill(1 - (mSkillCoolDownRemaining / mSkillCoolDown));
+                //mSkillOwner.mHealthBar.SetAbilityFill(1 - (mSkillCoolDownRemaining / mSkillCoolDown));
+                mSkillOwner.SetAbilityFill(mSkillCoolDownRemaining, mSkillCoolDown);
         }
     }
 

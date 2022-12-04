@@ -4,11 +4,6 @@ todo
 		call idle/move animations based on input/movespeed
 		call attack animation when attacking
 		call death animation when health is zero
-	user interface
-		add button for ability use
-		add charging bar for ability cooldown (can copy from healthbar)
-		add virtual joystick
-		map virtual joystick movement to move function input
 	bugfixes
 		fix distance to ai target calculation not always working correctly
 		ability is used instantly after starting game by ai
@@ -19,10 +14,12 @@ todo
 		refactor
 		set public/private/protected correctly
 		make sure everyting is commented correctly
+		shield fill is not shown on hud
 	other
 		build a level
 		create android build
 		test android build
+		victory condition
 	maybe
 		main menu
 		multiple levels

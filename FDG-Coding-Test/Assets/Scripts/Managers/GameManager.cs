@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     //other important object references
     public Player mPlayerRef { get; private set; }
     public Camera mMainCamera { get; private set; }
+    public HUDController mHUD { get; private set; }
 
     void Awake()
     {
@@ -32,6 +33,7 @@ public class GameManager : MonoBehaviour
         mAIManager = GetComponentInChildren<AIManager>();
         mProjectileFactory = GetComponentInChildren<ProjectileFactory>();
         mPlayerRef = (Player)mCombatManager.GetCombatEntityByIndex(0);
+        mHUD = GetComponentInChildren<HUDController>();
         //mPlayerRef = GameObject.Find("Player").GetComponent<Player>();
         Random.InitState(System.DateTime.Now.Millisecond);
     }

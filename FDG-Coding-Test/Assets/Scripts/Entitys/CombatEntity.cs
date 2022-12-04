@@ -14,6 +14,7 @@ public class CombatEntity : MonoBehaviour
     [SerializeField] protected int mCurrentHealth;
     [SerializeField] public int mMaxHealth;
     [SerializeField] protected int mCurrentShield;
+    [SerializeField] protected int mLastShieldApplied;
     //movement
     [SerializeField] protected float mMaxMoveSpeed;
     //combat
@@ -21,7 +22,6 @@ public class CombatEntity : MonoBehaviour
     [SerializeField] protected ESkillType mDefaultSkillStartType;
     [SerializeField] protected ESkillType mSpecialSkillStartType;
     [SerializeField] protected Skill[] mSkills;
-    public HealthBarController mHealthBar { get; protected set; }
     protected Transform mSkillContainer;
     //smooth rotation
     [SerializeField] protected float mTurnSpeed;
@@ -33,8 +33,7 @@ public class CombatEntity : MonoBehaviour
         mRenderRef = transform.GetChild(0).GetComponent<SpriteRenderer>();
         mRigidRef = GetComponent<Rigidbody>();
         mCollider = GetComponent<Collider>();
-        mHealthBar = transform.GetChild(1).GetComponent<HealthBarController>();
-        mSkillContainer = transform.GetChild(2);
+        mSkillContainer = transform.GetChild(1);
         mSkills = new Skill[2];
     }
 
@@ -43,6 +42,9 @@ public class CombatEntity : MonoBehaviour
         mCurrentHealth = mMaxHealth;
         FillSkillContainer(0, mDefaultSkillStartType);
         FillSkillContainer(1, mSpecialSkillStartType);
+        SetHealthFill();
+        SetShieldFill();
+        SetAbilityFill(0, 1);
     }
 
     protected virtual void Update()
@@ -102,8 +104,10 @@ public class CombatEntity : MonoBehaviour
             mCurrentShield = 0;
         }
         mCurrentHealth -= amount;
-        mHealthBar.SetHealthFill((float)mCurrentHealth / (float)mMaxHealth);
-        mHealthBar.SetShieldFill((float)mCurrentShield / ((float)mMaxHealth * 0.25f));
+        //mHealthBar.SetHealthFill((float)mCurrentHealth / (float)mMaxHealth);
+        //mHealthBar.SetShieldFill((float)mCurrentShield / ((float)mMaxHealth * 0.25f));
+        SetHealthFill();
+        SetShieldFill();
         //if ui is added, consider doing mathf.clamp here to prevent values below 0 breaking health bars
         if (mCurrentHealth <= 0)
             Die();
@@ -117,16 +121,11 @@ public class CombatEntity : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void AddShield(int amount)
-    {
-        mCurrentShield += amount;
-        mHealthBar.SetShieldFill((float)mCurrentShield / ((float)mMaxHealth * 0.25f));
-    }
-
     public void SetShield(int amount)
     {
         mCurrentShield = amount;
-        mHealthBar.SetShieldFill((float)mCurrentShield / ((float)mMaxHealth * 0.25f));
+        mLastShieldApplied = amount;
+        SetShieldFill();
     }
 
     public int GetMaxHealth()
@@ -155,7 +154,7 @@ public class CombatEntity : MonoBehaviour
             Destroy(mSkills[skillIndex].gameObject);
         mSkills[skillIndex] = GameManager.GMInstance.mCombatManager.CreateNewSkillFromType(newSkillType);
         mSkills[skillIndex].InitializeSkill(this);
-        mSkills[skillIndex].transform.parent = this.transform.GetChild(2);
+        mSkills[skillIndex].transform.parent = mSkillContainer;
     }
 
     protected void SmoothLook()
@@ -177,6 +176,20 @@ public class CombatEntity : MonoBehaviour
     //and just calling this, and letting the player do nothing is probably cleaner than:
     //adding a variable to the ability whether to cast combatentity to enemy and then call it
     public virtual void RestorePreviousState()
+    {
+
+    }
+
+
+    protected virtual void SetHealthFill()
+    {
+
+    }
+    protected virtual void SetShieldFill()
+    {
+
+    }
+    public virtual void SetAbilityFill(float remainingCooldown, float totalCooldown)
     {
 
     }

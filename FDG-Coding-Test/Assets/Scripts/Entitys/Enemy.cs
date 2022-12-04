@@ -21,11 +21,13 @@ public class Enemy : CombatEntity
     [SerializeField] protected float mRandomMoveMinDistance;
     [SerializeField] protected float mRandomMoveMaxDistance;
     protected NavMeshAgent mNavAgent;
+    public HealthBarController mHealthBar { get; protected set; }
 
     protected override void Awake()
     {
         base.Awake();
         mNavAgent = GetComponent<NavMeshAgent>();
+        mHealthBar = transform.GetChild(2).GetComponent<HealthBarController>();
     }
 
     protected override void Start()
@@ -113,7 +115,7 @@ public class Enemy : CombatEntity
                     Move(Vector2.zero);
                     SetBehaviourState(EEnemyState.attacking);
                     SetRandomSwitchTime();
-                    Debug.Log("switched states by proximity, new state is " + mCurrentState);
+                    //Debug.Log("switched states by proximity, new state is " + mCurrentState);
                 }
                 break;
             case (EEnemyState.attacking):
@@ -156,5 +158,19 @@ public class Enemy : CombatEntity
     public override void RestorePreviousState()
     {
         SetBehaviourState(mPreviousState);
+    }
+
+
+    protected override void SetHealthFill()
+    {
+        mHealthBar.SetHealthFill((float)mCurrentHealth / (float)mMaxHealth);
+    }
+    protected override void SetShieldFill()
+    {
+        mHealthBar.SetShieldFill((float)mCurrentShield / (float)mLastShieldApplied);
+    }
+    public override void SetAbilityFill(float remainingCooldown, float totalCooldown)
+    {
+        mHealthBar.SetAbilityFill(1 - (remainingCooldown / totalCooldown));
     }
 }

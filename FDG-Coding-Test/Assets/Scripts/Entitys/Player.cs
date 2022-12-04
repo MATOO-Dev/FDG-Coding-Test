@@ -50,4 +50,17 @@ public class Player : CombatEntity
         //get desired movement direction based on input
         return GameManager.GMInstance.mInputManager.mControlsAsset.PlayerMovement.MoveDirection.ReadValue<Vector2>().normalized;
     }
+
+    protected override void SetHealthFill()
+    {
+        GameManager.GMInstance.mHUD.SetHealthSliderFill((float)mCurrentHealth / (float)mMaxHealth);
+    }
+    protected override void SetShieldFill()
+    {
+        GameManager.GMInstance.mHUD.SetShieldSliderFill((float)mCurrentShield / (float)mLastShieldApplied);
+    }
+    public override void SetAbilityFill(float remainingCooldown, float totalCooldown)
+    {
+        GameManager.GMInstance.mHUD.SetAbilitySliderFill(1 - (remainingCooldown / totalCooldown));
+    }
 }

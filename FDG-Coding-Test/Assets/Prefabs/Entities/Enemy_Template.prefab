@@ -29,7 +29,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7754585741416729211}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7754585741416729208
 GameObject:
@@ -64,8 +64,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6878926335463442888}
-  - {fileID: 6956119422213788943}
   - {fileID: 6654021235472432693}
+  - {fileID: 6956119422213788943}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -85,20 +85,20 @@ MonoBehaviour:
   mCurrentHealth: 0
   mMaxHealth: 500
   mCurrentShield: 0
+  mLastShieldApplied: 0
   mMaxMoveSpeed: 3
-  mDamage: 50
+  mDamage: 25
   mDefaultSkillStartType: 0
-  mSpecialSkillStartType: 0
+  mSpecialSkillStartType: 3
   mSkills: []
   mTurnSpeed: 6
   mTurnTarget: {x: 0, y: 0, z: 0}
   mCurrentState: 0
-  mModeSwitchTimeMin: 3
-  mModeSwitchTimeMax: 5
+  mModeSwitchTimeMin: 0.5
+  mModeSwitchTimeMax: 3
   mModeSwitchTimeRemaining: 0
-  mRandomMoveMinDistance: 3
-  mRandomMoveMaxDistance: 5
-  mDistanceToAITarget: 0
+  mRandomMoveMinDistance: 5
+  mRandomMoveMaxDistance: 15
 --- !u!136 &4781756034537606513
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -196,7 +196,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6956119422380402238, guid: 25e92dc88dcd71bd495e2054c1f6342c, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6956119422380402238, guid: 25e92dc88dcd71bd495e2054c1f6342c, type: 3}
       propertyPath: m_AnchorMax.x

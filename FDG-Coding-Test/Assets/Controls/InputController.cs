@@ -39,85 +39,13 @@ public partial class @InputController : IInputActionCollection2, IDisposable
             ],
             ""bindings"": [
                 {
-                    ""name"": ""WASD"",
-                    ""id"": ""64ec4624-d136-40da-ba29-ab74a4cc80bf"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""MoveDirection"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""62af3538-bd37-4af9-aaba-ebfae86e843e"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""MoveDirection"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""a14d5675-c555-41a3-acdd-bfd37dfb5f97"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""MoveDirection"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""39745242-254b-4a09-a3eb-c5eac3a669ab"",
-                    ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""MoveDirection"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""55ee08d7-c922-4646-8df7-bd08b352f9b2"",
-                    ""path"": ""<Keyboard>/d"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""MoveDirection"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                }
-            ]
-        },
-        {
-            ""name"": ""PauseMenuControls"",
-            ""id"": ""c5ba94cc-eadc-4f8a-b16b-3d5fe1fbabd7"",
-            ""actions"": [
-                {
-                    ""name"": ""TogglePauseMenu"",
-                    ""type"": ""Button"",
-                    ""id"": ""f9538ba1-e9af-4c8e-b4f4-72728cc085d7"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
-                {
                     ""name"": """",
-                    ""id"": ""0d26e609-23b0-444e-9a8c-4aefedabb25b"",
-                    ""path"": ""<Keyboard>/escape"",
+                    ""id"": ""a375ebcc-3645-4c68-9f78-fb1b6569e767"",
+                    ""path"": ""<AndroidJoystick>/stick"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""TogglePauseMenu"",
+                    ""action"": ""MoveDirection"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -140,8 +68,8 @@ public partial class @InputController : IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""fe5a5be1-8a0b-4f92-bad8-91371eb2f6f8"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""id"": ""0ece8c00-d56b-424b-a66c-420455e97611"",
+                    ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -157,9 +85,6 @@ public partial class @InputController : IInputActionCollection2, IDisposable
         // PlayerMovement
         m_PlayerMovement = asset.FindActionMap("PlayerMovement", throwIfNotFound: true);
         m_PlayerMovement_MoveDirection = m_PlayerMovement.FindAction("MoveDirection", throwIfNotFound: true);
-        // PauseMenuControls
-        m_PauseMenuControls = asset.FindActionMap("PauseMenuControls", throwIfNotFound: true);
-        m_PauseMenuControls_TogglePauseMenu = m_PauseMenuControls.FindAction("TogglePauseMenu", throwIfNotFound: true);
         // SpecialAbility
         m_SpecialAbility = asset.FindActionMap("SpecialAbility", throwIfNotFound: true);
         m_SpecialAbility_UseSpecialAbility = m_SpecialAbility.FindAction("UseSpecialAbility", throwIfNotFound: true);
@@ -252,39 +177,6 @@ public partial class @InputController : IInputActionCollection2, IDisposable
     }
     public PlayerMovementActions @PlayerMovement => new PlayerMovementActions(this);
 
-    // PauseMenuControls
-    private readonly InputActionMap m_PauseMenuControls;
-    private IPauseMenuControlsActions m_PauseMenuControlsActionsCallbackInterface;
-    private readonly InputAction m_PauseMenuControls_TogglePauseMenu;
-    public struct PauseMenuControlsActions
-    {
-        private @InputController m_Wrapper;
-        public PauseMenuControlsActions(@InputController wrapper) { m_Wrapper = wrapper; }
-        public InputAction @TogglePauseMenu => m_Wrapper.m_PauseMenuControls_TogglePauseMenu;
-        public InputActionMap Get() { return m_Wrapper.m_PauseMenuControls; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(PauseMenuControlsActions set) { return set.Get(); }
-        public void SetCallbacks(IPauseMenuControlsActions instance)
-        {
-            if (m_Wrapper.m_PauseMenuControlsActionsCallbackInterface != null)
-            {
-                @TogglePauseMenu.started -= m_Wrapper.m_PauseMenuControlsActionsCallbackInterface.OnTogglePauseMenu;
-                @TogglePauseMenu.performed -= m_Wrapper.m_PauseMenuControlsActionsCallbackInterface.OnTogglePauseMenu;
-                @TogglePauseMenu.canceled -= m_Wrapper.m_PauseMenuControlsActionsCallbackInterface.OnTogglePauseMenu;
-            }
-            m_Wrapper.m_PauseMenuControlsActionsCallbackInterface = instance;
-            if (instance != null)
-            {
-                @TogglePauseMenu.started += instance.OnTogglePauseMenu;
-                @TogglePauseMenu.performed += instance.OnTogglePauseMenu;
-                @TogglePauseMenu.canceled += instance.OnTogglePauseMenu;
-            }
-        }
-    }
-    public PauseMenuControlsActions @PauseMenuControls => new PauseMenuControlsActions(this);
-
     // SpecialAbility
     private readonly InputActionMap m_SpecialAbility;
     private ISpecialAbilityActions m_SpecialAbilityActionsCallbackInterface;
@@ -320,10 +212,6 @@ public partial class @InputController : IInputActionCollection2, IDisposable
     public interface IPlayerMovementActions
     {
         void OnMoveDirection(InputAction.CallbackContext context);
-    }
-    public interface IPauseMenuControlsActions
-    {
-        void OnTogglePauseMenu(InputAction.CallbackContext context);
     }
     public interface ISpecialAbilityActions
     {
