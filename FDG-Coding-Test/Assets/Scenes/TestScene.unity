@@ -122,7 +122,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 678840b388ac1299da18f22b17635d6b, type: 2}
 --- !u!1001 &17180000
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5303,6 +5303,38 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5233215607112987472, guid: 4c91800703fccfbcbb7eed019c0aadc3, type: 3}
+      propertyPath: mDamage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5233215607112987472, guid: 4c91800703fccfbcbb7eed019c0aadc3, type: 3}
+      propertyPath: mRandomTimeMax
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5233215607112987472, guid: 4c91800703fccfbcbb7eed019c0aadc3, type: 3}
+      propertyPath: mRandomTimeMin
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5233215607112987472, guid: 4c91800703fccfbcbb7eed019c0aadc3, type: 3}
+      propertyPath: mModeSwitchTimeMax
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5233215607112987472, guid: 4c91800703fccfbcbb7eed019c0aadc3, type: 3}
+      propertyPath: mModeSwitchTimeMin
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5233215607112987472, guid: 4c91800703fccfbcbb7eed019c0aadc3, type: 3}
+      propertyPath: mRandomMoveMaxDistance
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5233215607112987472, guid: 4c91800703fccfbcbb7eed019c0aadc3, type: 3}
+      propertyPath: mRandomMoveMinDistance
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5233215607112987472, guid: 4c91800703fccfbcbb7eed019c0aadc3, type: 3}
+      propertyPath: mSpecialSkillStartType
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6956119421140727276, guid: 4c91800703fccfbcbb7eed019c0aadc3, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -7357,6 +7389,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4562075604489022, guid: 1b8fbee291cdc1046a281cb2b3b51bf7, type: 3}
   m_PrefabInstance: {fileID: 1437235561}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1458976671
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1458976672}
+  m_Layer: 0
+  m_Name: NavMesh Conatiner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1458976672
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1458976671}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1556759487}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1485736117
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7882,6 +7945,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1737534162}
+  - {fileID: 1458976672}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8825,7 +8889,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1737534162}
   m_Layer: 0
-  m_Name: Floor
+  m_Name: Floor Cubes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11807,6 +11871,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1170705481794832247, guid: 7de8ffdac1243bd679fb9fc48bd7b186, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4625275437693089703, guid: 7de8ffdac1243bd679fb9fc48bd7b186, type: 3}
+      propertyPath: mDamage
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6956119421013944685, guid: 7de8ffdac1243bd679fb9fc48bd7b186, type: 3}

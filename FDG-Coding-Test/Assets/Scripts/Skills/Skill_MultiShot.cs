@@ -24,30 +24,14 @@ public class Skill_MultiShot : Skill
         Vector2 multiShotBackup = defaultSkillRef.GetMultiShot();
         //set variables
         defaultSkillRef.SetMultiShot((int)multiShotBackup.x * mShotCount, mTimeBetweenShots);
+        //set attack cooldown after use -> if the // are removed, this can be used to e.g. make entity attack instantly after using multishot to get more value out of it
+        //mSkillOwner.GetSkill(0).SetCoolDownRemaining(mAttackCoolDownAfterUse);
+        //reset enemy ai after cast -> this would probably be better as a switch enemy state to attacking instead of previous
+        mSkillOwner.RestorePreviousState();
         //wait until skill is inactive
         yield return new WaitForSeconds(mSkillActiveTime);
         //restore variables
         defaultSkillRef.SetMultiShot((int)multiShotBackup.x, multiShotBackup.y);
         mSkillCoolDownRemaining = mSkillCoolDown;
-
-
-        ////first, get closest enemy
-        //CombatEntity target = mSkillOwner.ReturnClosestCombatEntity();
-        ////cancel early if no targets are available
-        //if (target != null)
-        //{
-        //
-        //    //StopSkillExecution();
-        //    //look at enemy
-        //    Quaternion.LookRotation(target.transform.position);
-        //    //shoot x times
-        //    for (int i = 0; i < mShotCount; i++)
-        //    {
-        //        GameManager.GMInstance.mProjectileFactory.CreateNewProjectile(mSkillOwner, target);
-        //        yield return new WaitForSeconds(mTimeBetweenShots);
-        //    }
-        //    //set cooldown
-        //    mSkillCoolDownRemaining = mSkillCoolDown;
-        //}
     }
 }

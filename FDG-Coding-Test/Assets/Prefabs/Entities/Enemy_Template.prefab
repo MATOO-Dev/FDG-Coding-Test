@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 5233215607112987472}
   - component: {fileID: 4781756034537606513}
   - component: {fileID: 8905124972834538586}
+  - component: {fileID: 6725332676307835966}
   m_Layer: 6
   m_Name: Enemy_Template
   m_TagString: Enemy
@@ -58,7 +59,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7754585741416729208}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.15514646, y: -0.19641198, z: 0.027552458}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -90,6 +91,14 @@ MonoBehaviour:
   mSpecialSkillStartType: 0
   mSkills: []
   mTurnSpeed: 6
+  mTurnTarget: {x: 0, y: 0, z: 0}
+  mCurrentState: 0
+  mModeSwitchTimeMin: 3
+  mModeSwitchTimeMax: 5
+  mModeSwitchTimeRemaining: 0
+  mRandomMoveMinDistance: 3
+  mRandomMoveMaxDistance: 5
+  mDistanceToAITarget: 0
 --- !u!136 &4781756034537606513
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -120,6 +129,28 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!195 &6725332676307835966
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7754585741416729208}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1.5
+  m_BaseOffset: 0.75
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1001 &437416753
 PrefabInstance:
   m_ObjectHideFlags: 0

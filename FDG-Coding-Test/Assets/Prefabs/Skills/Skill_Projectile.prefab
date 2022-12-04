@@ -45,5 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mSkillCoolDown: 1
+  mAffectsUIElement: 0
+  mAttackCoolDownAfterUse: 1
   mShotCount: 1
   mShotSpacing: 0

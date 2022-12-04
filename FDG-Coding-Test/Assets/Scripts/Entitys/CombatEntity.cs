@@ -25,7 +25,7 @@ public class CombatEntity : MonoBehaviour
     protected Transform mSkillContainer;
     //smooth rotation
     [SerializeField] protected float mTurnSpeed;
-    public Vector3 mTurnTarget;
+    [HideInInspector] public Vector3 mTurnTarget;
 
 
     protected virtual void Awake()
@@ -166,5 +166,18 @@ public class CombatEntity : MonoBehaviour
     public void SetTurnTarget(Vector3 targetPos)
     {
         mTurnTarget = targetPos;
+    }
+
+    public float GetAbilityCharge(int index)
+    {
+        return mSkills[index].GetAbilityCharge();
+    }
+
+    //unused in player, but used for enemy ai
+    //and just calling this, and letting the player do nothing is probably cleaner than:
+    //adding a variable to the ability whether to cast combatentity to enemy and then call it
+    public virtual void RestorePreviousState()
+    {
+
     }
 }

@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     //references other managers
     public CombatManager mCombatManager { get; private set; }
     public InputManager mInputManager { get; private set; }
+    public AIManager mAIManager { get; private set; }
     //factories
     public ProjectileFactory mProjectileFactory { get; private set; }
     //other important object references
@@ -28,8 +29,10 @@ public class GameManager : MonoBehaviour
         mCombatManager.PopulateEntityList();
         mInputManager = GetComponentInChildren<InputManager>();
         mInputManager.CreateControlsAsset();
+        mAIManager = GetComponentInChildren<AIManager>();
         mProjectileFactory = GetComponentInChildren<ProjectileFactory>();
         mPlayerRef = (Player)mCombatManager.GetCombatEntityByIndex(0);
         //mPlayerRef = GameObject.Find("Player").GetComponent<Player>();
+        Random.InitState(System.DateTime.Now.Millisecond);
     }
 }

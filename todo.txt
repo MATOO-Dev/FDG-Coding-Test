@@ -1,0 +1,28 @@
+todo
+	animations
+		add entity animations from asset packs
+		call idle/move animations based on input/movespeed
+		call attack animation when attacking
+		call death animation when health is zero
+	user interface
+		add button for ability use
+		add charging bar for ability cooldown (can copy from healthbar)
+		add virtual joystick
+		map virtual joystick movement to move function input
+	bugfixes
+		fix distance to ai target calculation not always working correctly
+		ability is used instantly after starting game by ai
+		primary ability can still be used right after ability is used
+		multishot has no cooldown on player
+	code cleanup
+		delete unused code
+		refactor
+		set public/private/protected correctly
+		make sure everyting is commented correctly
+	other
+		build a level
+		create android build
+		test android build
+	maybe
+		main menu
+		multiple levels

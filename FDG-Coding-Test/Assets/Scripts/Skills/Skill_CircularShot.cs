@@ -19,6 +19,10 @@ public class Skill_CircularShot : Skill
             //create a new projectile in that direction
             GameManager.GMInstance.mProjectileFactory.CreateNewProjectile(mSkillOwner, directionVector);
         }
+        //set attack cooldown after use -> prevent entity from attacking for a bit after using skill
+        mSkillOwner.GetSkill(0).SetCoolDownRemaining(mDefaultAttackCoolDownAfterUse);
+        //reset enemy ai after cast
+        mSkillOwner.RestorePreviousState();
         //set cooldown
         //yield return new WaitForSeconds(mSkillCoolDown);
         mSkillCoolDownRemaining = mSkillCoolDown;

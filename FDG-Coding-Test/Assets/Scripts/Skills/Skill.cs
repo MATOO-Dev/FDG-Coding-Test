@@ -17,6 +17,13 @@ public class Skill : MonoBehaviour
     protected CombatEntity mSkillOwner;
     public Coroutine mSkillRoutine { get; set; }
     [SerializeField] bool mAffectsUIElement;
+    [SerializeField] protected float mDefaultAttackCoolDownAfterUse;
+
+    protected void Start()
+    {   
+        //set ability cooldown right at the start, to prevent instant ability use upon starting the game
+        mSkillCoolDownRemaining = mSkillCoolDown;
+    }
 
     void FixedUpdate()
     {
@@ -43,5 +50,15 @@ public class Skill : MonoBehaviour
     public virtual IEnumerator ActivateSkill()
     {
         yield return null;
+    }
+
+    public float GetAbilityCharge()
+    {
+        return Mathf.Clamp(1 - (mSkillCoolDownRemaining / mSkillCoolDown), 0, 1);
+    }
+
+    public void SetCoolDownRemaining(float newCoolDown)
+    {
+        mSkillCoolDownRemaining = newCoolDown;
     }
 }
