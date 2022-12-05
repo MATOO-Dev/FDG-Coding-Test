@@ -44,8 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9caac0b10727abadaa303e316eea564c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mSkillCoolDown: 1
+  mSkillCoolDown: 0.75
+  mSkillCoolDownRemaining: 0
   mAffectsUIElement: 0
-  mAttackCoolDownAfterUse: 1
+  mDefaultAttackCoolDownAfterUse: 0
   mShotCount: 1
   mShotSpacing: 0

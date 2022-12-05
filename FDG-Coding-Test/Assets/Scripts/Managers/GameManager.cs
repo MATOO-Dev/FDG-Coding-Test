@@ -36,5 +36,7 @@ public class GameManager : MonoBehaviour
         mHUD = GetComponentInChildren<HUDController>();
         //generate a "random" seed from the current time
         Random.InitState(System.DateTime.Now.Millisecond);
+        //set target framerate
+        Application.targetFrameRate = 60;
     }
 }
