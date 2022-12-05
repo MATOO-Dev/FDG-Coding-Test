@@ -180,8 +180,12 @@ public class Enemy : CombatEntity
     }
     protected override void SetShieldFill()
     {
-        //update shield bar ui
-        mHealthBar.SetShieldFill((float)mCurrentShield / (float)mLastShieldApplied);
+        //if last shield applied is 0, the shield is being reset, so set fill value to 0 aswell
+        if (mLastShieldApplied == 0)
+            mHealthBar.SetShieldFill(0);
+        else
+            //update shield bar ui
+            mHealthBar.SetShieldFill((float)mCurrentShield / (float)mLastShieldApplied);
     }
     public override void SetAbilityFill(float remainingCooldown, float totalCooldown)
     {
