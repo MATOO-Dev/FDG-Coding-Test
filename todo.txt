@@ -1,6 +1,0 @@
-todo
-	code cleanup
-		set public/private/protected correctly
-	other
-		create android build
-		test android build

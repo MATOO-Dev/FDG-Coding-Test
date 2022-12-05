@@ -8723,6 +8723,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5233215607112987472, guid: 4c91800703fccfbcbb7eed019c0aadc3, type: 3}
+      propertyPath: mSpecialSkillStartType
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6956119421140727276, guid: 4c91800703fccfbcbb7eed019c0aadc3, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

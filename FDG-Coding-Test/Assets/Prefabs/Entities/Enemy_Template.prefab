@@ -85,7 +85,7 @@ MonoBehaviour:
   mMaxHealth: 500
   mCurrentShield: 0
   mLastShieldApplied: 0
-  mMoveSpeed: 2
+  mMoveSpeed: 3
   mDamage: 25
   mDefaultSkillStartType: 0
   mSpecialSkillStartType: 2
