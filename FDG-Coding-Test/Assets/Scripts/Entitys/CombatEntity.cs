@@ -10,13 +10,13 @@ public class CombatEntity : MonoBehaviour
     public Collider mCollider { get; private set; }                     //reference to collider component
     //health
     [SerializeField] protected int mCurrentHealth;                      //remaining health
-    [SerializeField] public int mMaxHealth;                             //maximum health
+    [SerializeField] protected int mMaxHealth;                          //maximum health
     [SerializeField] protected int mCurrentShield;                      //amount of shield remaining
     [SerializeField] protected int mLastShieldApplied;                  //amount of last shield granted
     //movement
     [SerializeField] protected float mMoveSpeed;                        //move speed of entity
     //combat
-    [SerializeField] public int mDamage;                                //damage this entity deals with projectiles
+    [SerializeField] protected int mDamage;                             //damage this entity deals with projectiles
     [SerializeField] protected ESkillType mDefaultSkillStartType;       //what type of default ability this entity starts with
     [SerializeField] protected ESkillType mSpecialSkillStartType;       //what type of special ability this entity starts with
     [SerializeField] protected Skill[] mSkills;                         //array of available skills
@@ -134,6 +134,9 @@ public class CombatEntity : MonoBehaviour
         SetShieldFill();
     }
 
+    //i tried getting maxHealth and damage via public var {get; private set;} like the other abilities
+    //however, for some reson, on these 2 specific variables it breaks for some unknown reason
+    //therefore, these are the only 2 variables with getters
     public int GetMaxHealth()
     {
         return mMaxHealth;
