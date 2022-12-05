@@ -115,7 +115,6 @@ public class CombatEntity : MonoBehaviour
 
     protected virtual void Die()
     {
-        Debug.Log("Io sono morto");
         //remove own reference in combatManager (this might break if the player is deleted, todo: check this one implemented)
         GameManager.GMInstance.mCombatManager.RemoveCombatEntity(this);
         Destroy(gameObject);

@@ -25,6 +25,8 @@ public class CombatManager : MonoBehaviour
     public void RemoveCombatEntity(CombatEntity target)
     {
         mActiveEntitys.Remove(target);
+        if (mActiveEntitys.Count() == 1)
+            ActivateVictoryCondition();
     }
 
     public CombatEntity[] GetAllEnemies()
@@ -59,5 +61,12 @@ public class CombatManager : MonoBehaviour
             default:
                 return null;
         }
+    }
+
+    public void ActivateVictoryCondition()
+    {
+        GameManager.GMInstance.mInputManager.mControlsAsset.PlayerMovement.Disable();
+        GameManager.GMInstance.mInputManager.mControlsAsset.SpecialAbility.Disable();
+        GameManager.GMInstance.mHUD.ActivateVictoryHud(mActiveEntitys[0]);
     }
 }

@@ -17,6 +17,8 @@ public class ProjectileFactory : MonoBehaviour
     public Projectile CreateNewProjectile(CombatEntity originEntity, CombatEntity targetEntity)
     {
         //delta
+        if (targetEntity == null)
+            return null;
         Vector3 deltaVector = (targetEntity.transform.position - originEntity.transform.position).normalized;
         //instantiate projectile
         Projectile newProjectile = Instantiate(mProjectilePrefab, originEntity.transform.position, Quaternion.identity);

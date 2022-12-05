@@ -89,16 +89,16 @@ MonoBehaviour:
   mMaxMoveSpeed: 3
   mDamage: 25
   mDefaultSkillStartType: 0
-  mSpecialSkillStartType: 3
+  mSpecialSkillStartType: 2
   mSkills: []
   mTurnSpeed: 6
   mTurnTarget: {x: 0, y: 0, z: 0}
   mCurrentState: 0
   mModeSwitchTimeMin: 0.5
   mModeSwitchTimeMax: 3
-  mModeSwitchTimeRemaining: 0
   mRandomMoveMinDistance: 5
   mRandomMoveMaxDistance: 15
+  mFirstAbilityUseWait: 2
 --- !u!136 &4781756034537606513
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -13,17 +13,11 @@ public enum ESkillType
 public class Skill : MonoBehaviour
 {
     [SerializeField] protected float mSkillCoolDown;
-    protected float mSkillCoolDownRemaining;
+    [SerializeField]  protected float mSkillCoolDownRemaining;
     protected CombatEntity mSkillOwner;
     public Coroutine mSkillRoutine { get; set; }
     [SerializeField] bool mAffectsUIElement;
     [SerializeField] protected float mDefaultAttackCoolDownAfterUse;
-
-    protected void Start()
-    {
-        //set ability cooldown right at the start, to prevent instant ability use upon starting the game
-        mSkillCoolDownRemaining = mSkillCoolDown;
-    }
 
     void FixedUpdate()
     {

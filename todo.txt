@@ -1,25 +1,10 @@
 todo
-	animations
-		add entity animations from asset packs
-		call idle/move animations based on input/movespeed
-		call attack animation when attacking
-		call death animation when health is zero
-	bugfixes
-		fix distance to ai target calculation not always working correctly
-		ability is used instantly after starting game by ai
-		primary ability can still be used right after ability is used
-		multishot has no cooldown on player
 	code cleanup
 		delete unused code
-		refactor
+		refactor if needed
 		set public/private/protected correctly
 		make sure everyting is commented correctly
-		shield fill is not shown on hud
+		remove debug logs
 	other
-		build a level
 		create android build
 		test android build
-		victory condition
-	maybe
-		main menu
-		multiple levels

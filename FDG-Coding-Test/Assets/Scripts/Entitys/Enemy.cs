@@ -17,9 +17,10 @@ public class Enemy : CombatEntity
     EEnemyState mPreviousState;
     [SerializeField] protected float mModeSwitchTimeMin;
     [SerializeField] protected float mModeSwitchTimeMax;
-    [SerializeField] protected float mModeSwitchTimeRemaining;
+    protected float mModeSwitchTimeRemaining;
     [SerializeField] protected float mRandomMoveMinDistance;
     [SerializeField] protected float mRandomMoveMaxDistance;
+    [SerializeField] protected float mFirstAbilityUseWait;
     protected NavMeshAgent mNavAgent;
     public HealthBarController mHealthBar { get; protected set; }
 
@@ -33,6 +34,7 @@ public class Enemy : CombatEntity
     protected override void Start()
     {
         base.Start();
+        mSkills[1].SetCoolDownRemaining(mFirstAbilityUseWait);
         SetRandmomMoveTarget();
         SetRandomSwitchTime();
     }

@@ -31,7 +31,7 @@ public class Player : CombatEntity
         //apply movement
         Move(movementDirection);
         //attack if applicable (note: movement is still called, because if the magnitude is 0 this makes the player stop)
-        if (movementDirection.magnitude == 0)
+        if (movementDirection.magnitude == 0 && GetMovementVector().magnitude < 0.1f)
             AttackClosestCombatEntity();
     }
 
@@ -57,7 +57,10 @@ public class Player : CombatEntity
     }
     protected override void SetShieldFill()
     {
-        GameManager.GMInstance.mHUD.SetShieldSliderFill((float)mCurrentShield / (float)mLastShieldApplied);
+        if (mLastShieldApplied != 0)
+            GameManager.GMInstance.mHUD.SetShieldSliderFill((float)mCurrentShield / (float)mLastShieldApplied);
+        else
+            GameManager.GMInstance.mHUD.ResetShieldSliderFill();
     }
     public override void SetAbilityFill(float remainingCooldown, float totalCooldown)
     {

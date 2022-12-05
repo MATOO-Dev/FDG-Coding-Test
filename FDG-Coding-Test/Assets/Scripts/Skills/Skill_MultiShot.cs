@@ -22,6 +22,8 @@ public class Skill_MultiShot : Skill
         Skill_Projectile defaultSkillRef = (Skill_Projectile)mSkillOwner.GetSkill(0);
         //save current variables
         Vector2 multiShotBackup = defaultSkillRef.GetMultiShot();
+        //set cooldown to infinity to prevent ability casting while ability is already active
+        mSkillCoolDownRemaining = Mathf.Infinity;
         //set variables
         defaultSkillRef.SetMultiShot((int)multiShotBackup.x * mShotCount, mTimeBetweenShots);
         //set attack cooldown after use -> if the // are removed, this can be used to e.g. make entity attack instantly after using multishot to get more value out of it

@@ -6,9 +6,11 @@ public class Projectile : MonoBehaviour
 {
     [SerializeField] float mMoveSpeed;
     [SerializeField] float mMaxLifeTime;
+    [SerializeField] float mTerrainLingerTime;
     CombatEntity mOwner;
     int mDamage;
     Rigidbody mRigidRef;
+    bool mIgnoreCollisions;
 
 
     public virtual void InitiateProjectile(CombatEntity owner, Vector3 direction, int damage)
@@ -24,13 +26,22 @@ public class Projectile : MonoBehaviour
 
     public virtual void OnTriggerEnter(Collider other)
     {
+        if (mIgnoreCollisions)
+            return;
         //first, resolve for wall or combatentity
         switch (other.gameObject.layer)
         {
-            //if wall, self destruct
-            case (8):
+            //if blockprojectile, self destruct
+            case (9):
                 mRigidRef.velocity = Vector2.zero;
-                Destroy(gameObject);
+                mIgnoreCollisions = true;
+                Destroy(gameObject, mTerrainLingerTime);
+                break;
+            //if block projectile and entity, self destruct
+            case (10):
+                mRigidRef.velocity = Vector2.zero;
+                mIgnoreCollisions = true;
+                Destroy(gameObject, mTerrainLingerTime);
                 break;
             //if combatentity, damage entity, then self destruct
             case (6):

@@ -56,7 +56,7 @@ MonoBehaviour:
   mMaxMoveSpeed: 3
   mDamage: 25
   mDefaultSkillStartType: 0
-  mSpecialSkillStartType: 2
+  mSpecialSkillStartType: 1
   mSkills: []
   mTurnSpeed: 6
   mTurnTarget: {x: 0, y: 0, z: 0}
@@ -67,7 +67,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1170705481794832246}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 94015c3e0bdf8a93e85fe666dcf0ac0c, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
