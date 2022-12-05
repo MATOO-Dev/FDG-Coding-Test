@@ -48,12 +48,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80dad91039f39ba7eae846ff80730ec6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mProjectilePrefab: {fileID: 3935924519935497796, guid: 5ae58d9c341be9937bfea3cc90a748bc, type: 3}
   mCurrentHealth: 0
   mMaxHealth: 600
   mCurrentShield: 0
   mLastShieldApplied: 0
-  mMaxMoveSpeed: 3
+  mMoveSpeed: 2
   mDamage: 25
   mDefaultSkillStartType: 0
   mSpecialSkillStartType: 1

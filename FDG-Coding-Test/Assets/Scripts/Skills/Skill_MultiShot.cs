@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Skill_MultiShot : Skill
 {
-    [SerializeField] int mShotCount;
-    [SerializeField] float mTimeBetweenShots;
-    [SerializeField] float mSkillActiveTime;
+    [SerializeField] int mShotCount;            //how many projectiles are fired in sequence
+    [SerializeField] float mTimeBetweenShots;   //time between shots
+    [SerializeField] float mSkillActiveTime;    //how long this effect lasts
 
     public override IEnumerator ActivateSkill()
     {
-        //this affects the default attack to fire thrice instead
+        //this affects the default attack to fire multiple times instead
         //2 options: 
         //1) get reference to default attack -> edit shot counter variable in default skill -> let default skill handle the rest
         //might be messy code, but scales better
@@ -34,6 +34,7 @@ public class Skill_MultiShot : Skill
         yield return new WaitForSeconds(mSkillActiveTime);
         //restore variables
         defaultSkillRef.SetMultiShot((int)multiShotBackup.x, multiShotBackup.y);
+        //set cooldown
         mSkillCoolDownRemaining = mSkillCoolDown;
     }
 }

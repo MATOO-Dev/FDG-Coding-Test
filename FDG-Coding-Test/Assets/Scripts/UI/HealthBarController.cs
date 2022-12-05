@@ -5,28 +5,32 @@ using UnityEngine.UI;
 
 public class HealthBarController : MonoBehaviour
 {
-    [SerializeField] CombatEntity mAssociatedEntity;
-    [SerializeField] Slider mHealthSlider;
-    [SerializeField] Slider mShieldSlider;
-    [SerializeField] Slider mAbilitySlider;
+    [SerializeField] CombatEntity mAssociatedEntity;    //entity that this health bar is attached to
+    [SerializeField] Slider mHealthSlider;              //slider component reference for health
+    [SerializeField] Slider mShieldSlider;              //slider component reference for shield
+    [SerializeField] Slider mAbilitySlider;             //slider component reference for cooldown/ability charge
 
     void LateUpdate()
     {
+        //billboard, so the healthbar always faces the camera
         transform.LookAt(transform.position + GameManager.GMInstance.mMainCamera.transform.forward);
     }
 
-    public void SetHealthFill(float fillValue)
+    //set fill value for health
+    public void SetHealthFill(float fraction)
     {
-        mHealthSlider.value = Mathf.Clamp(fillValue, 0, 1);
+        mHealthSlider.value = Mathf.Clamp(fraction, 0, 1);
     }
 
-    public void SetShieldFill(float fillValue)
+    //set fill value for shield
+    public void SetShieldFill(float fraction)
     {
-        mShieldSlider.value = Mathf.Clamp(fillValue, 0, 1);
+        mShieldSlider.value = Mathf.Clamp(fraction, 0, 1);
     }
 
-    public void SetAbilityFill(float fillValue)
+    //set fill value for ability charge
+    public void SetAbilityFill(float fraction)
     {
-        mAbilitySlider.value = Mathf.Clamp(fillValue, 0, 1);
+        mAbilitySlider.value = Mathf.Clamp(fraction, 0, 1);
     }
 }

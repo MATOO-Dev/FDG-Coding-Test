@@ -1,10 +1,6 @@
 todo
 	code cleanup
-		delete unused code
-		refactor if needed
 		set public/private/protected correctly
-		make sure everyting is commented correctly
-		remove debug logs
 	other
 		create android build
 		test android build

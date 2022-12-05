@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Skill_CircularShot : Skill
 {
-    [SerializeField] int mShotCount;
+    [SerializeField] int mShotCount;    //how many projectiles are shot radially
 
     public override IEnumerator ActivateSkill()
     {
@@ -14,7 +14,7 @@ public class Skill_CircularShot : Skill
         for (int i = 0; i < mShotCount; i++)
         {
             //get current direction vector
-            //start at forwards, then rotate around origin
+            //start at forwards, then rotate around origin -> this ensures that 1 projectile will always be shot in the direction the entity is currently facing
             Vector3 directionVector = Quaternion.Euler(0, mShotAngle * i, 0) * mSkillOwner.transform.forward;
             //create a new projectile in that direction
             GameManager.GMInstance.mProjectileFactory.CreateNewProjectile(mSkillOwner, directionVector);
@@ -24,7 +24,6 @@ public class Skill_CircularShot : Skill
         //reset enemy ai after cast
         mSkillOwner.RestorePreviousState();
         //set cooldown
-        //yield return new WaitForSeconds(mSkillCoolDown);
         mSkillCoolDownRemaining = mSkillCoolDown;
         yield return null;
     }
